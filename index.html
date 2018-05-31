@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>コン蒲麻雀倶楽部</title>
+	<meta charset="UTF-8">
+	<style>
+
+		body {
+			font-size: 2.0em;
+
+			font-family: 'Avenir','Helvetica Neue','Helvetica','Arial','Hiragino Sans','ヒラギノ角ゴシック',YuGothic,'Yu Gothic','メイリオ', Meiryo,'ＭＳ Ｐゴシック','MS PGothic'
+		}
+
+		table {
+			text-align: center;
+			border-collapse: collapse; /* 一重線 */
+			width: 100%;
+			border: 2px solid black;
+			table-layout: fixed;
+		}
+
+		th {
+			border: 1px solid gray;
+			background: #dcdcdc;
+			/* 見出しセルの内容は改行しない */
+			white-space : nowrap;
+
+		}
+
+		td {
+			border: 1px solid gray;
+			/* 列幅は見出しセルに合わせる。データセルの内容は列幅に合わせて改行 */
+			word-break : break-all;
+		}
+
+		caption {
+			caption-side: top;
+			font-size: x-large;
+			font-weight: bold;
+			text-align: left;
+		}
+
+		.tableSenseki tr:nth-child(2n){
+			background-color: lightblue;
+		}
+
+		.tableRanking td:nth-child(2n){
+			background-color: lightblue;
+		}
+
+		.tableSenseki td:nth-child(1){
+			font-size: 0.8em;
+		}
+
+
+	</style>
+</head>
+<body>
+
+<a href=./newGame.html><h2>新しく対局をはじめる</h2></a>
+
+<div class = "Senseki">
+<table class = "tableSenseki">
+<caption>対局中！！</caption>
+	<tr>	
+		<th width = "12%">日時</th>
+		<th width = "10%">状態</th>
+		<th width = "8%">対局数</th>
+		<th width = "16%">１位</th>
+		<th width = "16%">２位</th>
+		<th width = "16%">３位</th>
+		<th width = "16%">４位</th>
+		<th width = "16%">５位</th>
+	</tr>
+
+	<tr>	
+		<td rowspan="2"><a href = "./newGame.html">2018/12/21<br>22:15</a></td>
+		<td rowspan="2">対局中</td>
+		<td rowspan="2">3</td>
+		<td>トム</td>
+		<td>あきら</td>
+		<td>タカ</td>
+		<td>あゆむら</td>
+		<td>クニ</td>
+	</tr>
+	<tr>
+		<td>+100</td>
+		<td>+10</td>
+		<td>-50</td>
+		<td>-60</td>
+		<td>-100</td>
+	</tr>
+
+</table>
+
+</div>
+
+  <br>
+  <br>
+  <br>
+<table class = "tableRanking">
+	<caption>今月のランキング</caption>
+	<tr>
+		<th width = 8%>順位</th>
+		<th width = 23% colspan="2">総得点</th>
+		<th width = 23% colspan="2">得点率</th>
+		<th width = 23% colspan="2">対局数<br>(暇人ランキング)</th>
+		<th width = 23% colspan="2">最高得点</th>
+	</tr>
+	<tr>
+		<td>１位</td>
+		<td>クニ</td><td>+300</td>
+		<td>トマ</td><td>+50</td>
+		<td>あきら</td><td>30</td>
+		<td>トム</td><td>+99</td>
+	</tr>
+	<tr>
+		<td>２位</td>
+		<td>クニ</td><td>+300</td>
+		<td>トマ</td><td>+50</td>	
+		<td>あきら</td><td>18</td>
+		<td>トム</td><td>+99</td>
+	</tr>
+	<tr>
+		<td>３位</td>
+		<td>クニ</td><td>+300</td>
+		<td>トマ</td><td>+50</td>
+		<td>あきら</td><td>5</td>
+		<td>トム</td><td>+99</td>
+	</tr>
+	<tr>
+		<td colspan = "9"><a href=rankingNow.html>続きを見る</a></td>
+	</tr>
+
+</table>
+
+<br>
+<br>
+<br>
+
+
+<table class = "tableSenseki">
+	<caption>直近の戦績</caption>
+  	<tr>	
+		<th>日時</th>
+		<th>対局数</th>
+		<th>１位</th>
+		<th>２位</th>
+		<th>３位</th>
+		<th>４位</th>
+		<th>５位</ - th>
+  	</tr>
+  	<!-- GAME1 -->
+  	<tr>	
+  		<td rowspan="2">2018/5/21</td>
+		<td rowspan="2">6</td>
+ 		<td>クニ</td>
+   		<td>トマ</5d>
+  		<td>あきら</td>
+  		<td>トム</td>
+  		<td> - </td>
+  	</tr>
+ 	<tr>
+ 		<td>+60</td>
+ 		<td>+20</td>
+ 		<td>-10</td>
+ 		<td>-30</td>
+  		<td> - </td>
+ 	</tr>
+
+  	<!-- GAME2 -->
+  	<tr>	
+		<td rowspan="2">2018/5/20</td>
+  		<td rowspan="2">5</td>
+		<td>クニ</td>
+		<td>トマ</td>
+		<td>あきら</td>
+		<td>トム</td>
+		<td>ポチ</td>
+  	</tr>
+ 	<tr>
+ 		<td>+60</td>
+ 		<td>+20</td>
+ 		<td>-10</td>
+ 		<td>-30</td>
+		<td>-50</td>
+ 	</tr>
+	<tr>
+		<td colspan = "7"><a href=oldseiseki.html>続きを見る</a></td>
+	</tr>
+
+  </table>
+
+
+</body>
+</html>
