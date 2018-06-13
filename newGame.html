@@ -12,18 +12,27 @@
 		.tableTaikyokuNow {
 			text-align: center;
 			border-collapse: collapse; /* 一重線 */
-			width: 105%;
+			width: 100%;
 			border: 2px solid gray;
 		}
 
 		.tableTaikyokuNow th {
 			border: 1px solid gray;
-			background: #dcdcdc;
 			padding-top: 1.0em;
 			padding-bottom: 1.0em;
 		}
 
+		.thName {
+			background: #dcdcdc;
+		}
+
+		.thSum {
+			background: lightgreen;
+		}
+
+
 		.tableTaikyokuNow td {
+
 			border: 1px solid gray;
 			padding-top: 1.0em;
 			padding-bottom: 1.0em;
@@ -31,6 +40,7 @@
 		.tableTaikyokuNow td:nth-child(2n){
 			background-color: lightblue;
 		}
+
 
 		.tableTaikyokuNow caption {
 			caption-side: top;
@@ -50,6 +60,27 @@
 			border-radius: 3px;
 		}
 
+
+		#inputDialog {
+		    width: 90%;
+		    margin: auto;
+		    margin-top: 10vh;
+		    padding: 30px 20px;
+		    display: none;
+		    text-align: center;
+		    border: 1px solid #aaa;
+		    box-shadow: 2px 2px 4px #888;
+		}
+
+		ul li {
+			list-style: none;
+			label {
+			    margin-right: 10px;
+			    width: 100px;
+			    float: left;
+			}
+		}
+
 		.invisibleBtn {
 			background: none;
 			border: none;
@@ -61,42 +92,43 @@
 </head>
 <body>
 
+<div id="showScore">
 <table>
 	<tr>
 		<td>対局開始時刻</td>
 		<td>2018/5/16 22:30</td>
 		<td><Button class = "sqr_button">メンバー編集</Button></td>
+		<td><button id = "addbtn" class = "sqr_button" >追加</button></td>
 	</tr>
 
 </table>
 
+
 <table id = "table_id" class = "tableTaikyokuNow">
 <caption>対局中！！</caption>
-	<tr>	
+	<tr class="thName">	
 		<th width = 12%>種類</th>
 		<th width = 18%>トム</th>
 		<th width = 18%>あきら</th>
 		<th width = 18%>車掌</th>
 		<th width = 18%>たいち</th>
 		<th width = 18%>どもん</th>
-<!--
-		<th><button type = "button" onclick="alert('test')">追加</button></th>
--->
 	</tr>
-
+	<tr class="thSum">
+		<th>合計</th>
+		<th></th>
+		<th></th>
+		<th></th>
+		<th></th>
+		<th></th>
+	</tr>
 	<tr>
-		<td><button class = "invisibleBtn">四麻</button></td>
+		<td>四麻</td>
 		<td>50</td>
 		<td>-42</td>
 		<td>18</td>
 		<td>-16</td>
 		<td></td>
-<!--
-		<td>
-			<button type = "button" onclick="alert('test')">修正</button>
-			<button type = "button" onclick="alert('test')" >削除</button>
-		</td>
--->
 	</tr>
 	<tr>
 		<td>四麻</td>
@@ -105,12 +137,6 @@
 		<td>-40</td>
 		<td></td>
 		<td>-50</td>
-<!--
-		<td>
-			<button type = "button" onclick="alert('test')">修正</button>
-			<button type = "button" onclick="alert('test')" >削除</button>
-		</td>
--->
 	</tr>
 	<tr>
 		<td>チップ</td>
@@ -119,139 +145,187 @@
 		<td>8</td>
 		<td>-6</td>
 		<td>-6</td>
-<!--
-		<td>
-			<button type = "button" onclick="alert('test')">修正</button>
-			<button type = "button" onclick="alert('test')" >削除</button>
-		</td>
--->
+	</tr>
+
+	<tr>
+		<td></td><td></td><td></td>
+		<td></td><td></td><td></td>
 	</tr>
 	<tr>
-		<td colspan = "8"><button id = "addbtn" class = "sqr_button" >追加</td>
+		<td></td><td></td><td></td>
+		<td></td><td></td><td></td>
 	</tr>
-<!--
-	<tr id = "addline"></tr>
--->
 	<tr>
-		<th>合計</td>
-			<th></th>
-			<th></th>
-			<th></th>
-			<th></th>
-			<th></th>
-	<!--
-			<th></th>
-	-->
-		</tr>
+		<td></td><td></td><td></td>
+		<td></td><td></td><td></td>
+	</tr>
+	<tr>
+		<td></td><td></td><td></td>
+		<td></td><td></td><td></td>
+	</tr>
+
+</table>
+
+<button class = "sqr_button">ゲーム終了</button>
+</div> <!-- showScore-->
+
+
+
+<div id="inputDialog">
+    <p>
+	<input id="kind4ma" type="radio" name="kind" value="4ma">
+	<label for="kind4ma">四麻</label>
+	<input id="kind3ma" type="radio" name="kind" value="3ma">
+	<label for="kind3ma">三麻</label>
+	<input id="kindChip" type="radio" name="kind" value="chip">
+	<label for="kindChip">チップ</label>
+	</p>
+
+	<table id="inputScore">
 	</table>
 
-	<button class = "sqr_button">ゲーム終了</button>
+	<p>合計  <span id="inScoreSum">0</span></p>
 
-	<script>
-		// 
-		var flg = 0; // 入力値判定フラグ
-		var backupText = "";
-		window.onload = function() {
-			var myTbl = document.getElementById('table_id');
-			var tdList = myTbl.getElementsByTagName('td');
-			for(var cnt=0; cnt < tdList.length; cnt++){
-				tdList[cnt].setAttribute('id','td' + cnt);	
-				tdList[cnt].onclick = function() {
-					console.log("log:onClick " + this.innerHTML);
 
-					if(flg==1){return;}
+	<p>よろしいですか？</p>
+    <button id="yes" class = "sqr_button">はい</button>
+    <button id="cancel" class = "sqr_button">キャンセル</button>
+</div>
 
-					backupText = this.innerHTML;// 入力されなかった時用のバックアップ
-					console.log("log:backupText " + backupText);
 
-					editTd(this.id);
+<script>
+	const firstRow = 2; // 点数入力の初期行(0から開始)
+	const firstCol = 1; // 点数入力の初期列(0から開始)
+	const sumRow = 1;	// 合計値の初期列
+	var flg = 0; // 入力値判定フラグ
+	var backupText = "";
+	var inputMode = 0; //0:通常 1:編集中
 
-					return;
-				}
+	window.onload = function() {
+
+		var myTbl = document.getElementById('table_id');
+		var tdList = myTbl.getElementsByTagName('td');
+		for(var cnt=0; cnt < tdList.length; cnt++){
+			tdList[cnt].setAttribute('id','td' + cnt);	
+			tdList[cnt].onclick = function() {
+				console.log("log:onClick " + this.innerHTML);
+
+				if(flg==1){return;}
+
+				backupText = this.innerHTML;// 入力されなかった時用のバックアップ
+				console.log("log:backupText " + backupText);
+
+//				editTd(this.id);
+				
+
+
+				displayDialog(myTbl, this.id);
+
+				return;
 			}
+		}
 
-			console.log("onload calc");
-			calcSum(myTbl);
+		console.log("onload calc");
+		calcSum(myTbl);
 
 
-			// 編集可能領域がクリックされた場合
-			function editTd(id) {
-				console.log("log:edit " + id)
-				var tdList = document.getElementsByTagName('td');
-				var spn = document.createElement('span');
-				spn.setAttribute('contenteditable','true')
-				spn.setAttribute('id','spn' + id);
+		// 編集可能領域がクリックされた場合
+		function editTd(id) {
+			console.log("log:edit " + id)
+			var tdList = document.getElementsByTagName('td');
+			var spn = document.createElement('span');
+			spn.setAttribute('contenteditable','true')
+			spn.setAttribute('id','spn' + id);
 
-				tdList[id].innerHTML = ""; // 既存部分は編集できない？
-				tdList[id].appendChild(spn);
-				spn.focus();
-				spn.onblur = function() {
-					blurTd(id);
-				}
+			tdList[id].innerHTML = ""; // 既存部分は編集できない？
+			tdList[id].appendChild(spn);
+			spn.focus();
+			spn.onblur = function() {
+				blurTd(id);
 			}
+		} // end of editTd
 
 			// フォーカスアウト
-			function blurTd(id) {
+		function blurTd(id) {
 
-				console.log("log:blurTd " + id)
-				var spn = document.getElementById('spn' + id);
-				console.log(spn);
-				var str = spn.textContent; //textContextだと改行が取得できなかった(br変換されてた(chrome))。innnerTextだと改行ありで取得
-				// 入力値チェック
+			console.log("log:blurTd " + id)
+			var spn = document.getElementById('spn' + id);
+			console.log(spn);
+			var str = spn.textContent; //textContextだと改行が取得できなかった(br変換されてた(chrome))。innnerTextだと改行ありで取得
+			// 入力値チェック
 
-				if(str.match(/[^0-9 . -]|[¥s]+/)) {
-					console.log("log:input invalid text " + str);
-					flg = 1;
+			if(str.match(/[^0-9 . -]|[¥s]+/)) {
+				console.log("log:input invalid text " + str);
+				flg = 1;
 
-					alert("半角数値を入れてください")
-					editTd(id);
-				}else if(str == ""){
-					console.log("log:input none " + backupText);
+				alert("半角数値を入れてください")
+				editTd(id);
+			}else if(str == ""){
+				console.log("log:input none " + backupText);
 
-					flg = 0;
-					// 入力がなかったので戻す
-					tdList[id].innerHTML = backupText;
-				}else {
-					// 数値が変更された
-					console.log("log:input text " + str);
-					flg = 0;
-					tdList[id].innerHTML = str;
-					calcSum(myTbl)
-				}
+				flg = 0;
+				// 入力がなかったので戻す
+				tdList[id].innerHTML = backupText;
+			}else {
+				// 数値が変更された
+				console.log("log:input text " + str);
+				flg = 0;
+				tdList[id].innerHTML = str;
+				calcSum(myTbl)
+			}
 
-			} //End of blurTd
+		} //End of blurTd
 
-			function calcSum(tbl){
+		function calcSum(tbl){
 
-				var rowLen = tbl.rows.length; // 行数
-				var colLen = tbl.rows[1].cells.length; // 列数
-				var sum = [colLen - 1];
-				console.log("log:row=" + rowLen + " col="+colLen);
+			var rowLen = tbl.rows.length; // 行数
+			var colLen = tbl.rows[firstRow].cells.length; // 列数
+			var sum = [colLen - firstCol];
+			console.log("log:row=" + rowLen + " col="+colLen);
+			for(var colCnt = firstCol;colCnt < colLen ; colCnt++){
+				sum[colCnt-1] = 0;
 
-				for(var colCnt = 1;colCnt < colLen ; colCnt++){
-					sum[colCnt-1] = 0;
+				for(var rowCnt = firstRow;rowCnt < rowLen; rowCnt++){
 
-					for(var rowCnt=1;rowCnt < rowLen -2; rowCnt++){
-
-						num = myTbl.rows[rowCnt].cells[colCnt].textContent;
-						num = parseInt(num);
-						console.log("log:table[%d][%d]=%d",rowCnt,colCnt,num);
-						if (isNaN(num)){
-							// 整数以外は処理しない
-							console.log("log: NaN")
-							continue;
-						}
-						sum[colCnt-1] += num
+					num = myTbl.rows[rowCnt].cells[colCnt].textContent;
+					num = parseInt(num);
+//					console.log("log:table[%d][%d]=%d",rowCnt,colCnt,num);
+					if (isNaN(num)){
+						// 整数以外は処理しない
+						console.log("log: NaN")
+						continue;
 					}
-
-					// 合計値を書き換え
-					var sumCell = tbl.rows[colLen-1].cells[colCnt];
-					sumCell.innerHTML = sum[colCnt-1];
-
+					sum[colCnt-firstCol] += num
 				}
-				console.log("log:sum "+ sum);
-			} // End of calcSum
-		} // End of window.onload
+
+				// 合計値を書き換え
+				var sumCell = tbl.rows[sumRow].cells[colCnt];
+				sumCell.innerHTML = sum[colCnt - firstCol];
+
+			}
+			console.log("log:sum "+ sum);
+		} // End of calcSum
+
+
+		// 行の合計が0になっているかどうかを確認(boolean)
+		function checkLine(tbl , rowNo){
+			var sum = 0;
+			var colLen = tbl.rows[1].cells.length; // 列数
+			for(var cnt = firstCol; cnt < colLen; cnt++){
+					num = myTbl.rows[rowCnt].cells[colCnt].textContent;
+					num = parseInt(num);
+					if (isNaN(num)){
+						// 整数以外は処理しない
+						console.log("log: NaN")
+						continue;
+					}
+				sum += num;
+			}
+
+
+
+		}
+	} // End of window.onload
 
 
 	var addbtn = document.getElementById("addbtn");
@@ -261,12 +335,8 @@
 		var rowLen = tbl.rows.Length;
 		console.log("log:rowLen=" + rowLen);
 		var tr = tbl.insertRow(4);
-
-
 		var td1 = tr.insertCell(-1);
-//		var newText = td1.createTextNode("チップ")
-//		td1.appendChild(newText);
-		td1.innerHTML = "チップ"
+		td1.innerHTML = ""
 		var td2 = tr.insertCell(-1);
 		td2.innerHTML = ""
 		var td3 = tr.insertCell(-1);
@@ -277,9 +347,182 @@
 		// rubyに入力を送信
 
 		// 合計も変更
-
-
 	}, false);
+
+
+
+// このリストはrubyで自動生成する
+const plist = {1:'トム', 2:'クニ', 3:'まーさん',4:'あきら', 6:'車掌',8:'どもん', 9:'のり', 10:'たいち'};
+const players = [1, 4, 6, 10, 8];
+
+console.log(plist);
+console.log(players);
+
+var inScoreTbl = document.getElementById('inputScore');
+var inputObjs = [];
+
+var inRowCnt = 0;
+
+players.forEach(function(playerNo){
+	var tr = inScoreTbl.insertRow(inRowCnt);
+	var td1 = tr.insertCell(-1);
+	td1.innerHTML = plist[playerNo];
+	var td2 = tr.insertCell(-1);
+	var doc = document.createElement("input");
+	doc.type = "number"
+	doc.id = "inputId" + playerNo;
+	doc.name = "input" + playerNo;
+	td2.appendChild(doc);
+	inputObjs.push(doc);
+	// テキストボックスの入力イベント
+	doc.addEventListener("input",function(){
+		console.log("event input:" + this.value);
+		calcInputScore();
+	});
+	inRowCnt++;
+})
+console.log(inputObjs);
+
+var inScoreSumObj = document.getElementById('inScoreSum');
+
+function calcInputScore(){
+
+	var sum = 0;
+
+	inputObjs.forEach(function(obj){
+		value = obj.value;
+//		console.log("value:" + value);
+		num = parseInt(value)
+		if (!isNaN(num)){
+			sum += num;
+		}
+
+	});
+	console.log("sum:" + sum);
+	
+	inScoreSumObj.innerHTML = "";
+	inScoreSumObj.textContent = sum;
+	if(sum < 0){
+		inScoreSumObj.style.color = "red";
+	} else{
+		inScoreSumObj.style.color = "black";
+	}
+
+}
+
+//function show
+
+
+//各種ボタン要素を取得しておく
+var inputDialogObj = document.getElementById('inputDialog');
+//var btn = document.getElementById('btn');
+var yes = document.getElementById('yes');
+var cancel = document.getElementById('cancel');
+ 
+var showScoreObj = document.getElementById('showScore');
+
+var editGameNo = 0;
+
+
+function displayDialog(scoreTbl, tdId){
+	console.log(tdId);
+	id = tdId.substr(2);
+	idNum = parseInt(id);
+	console.log(id);
+
+	var colLen = scoreTbl.rows[1].cells.length; // 列数
+
+	editGameNo = Math.floor(idNum / colLen);
+	console.log("editGameNo1:" + editGameNo);
+
+	for(var cnt = 0; cnt < colLen; cnt++){;
+
+		var num = (editGameNo * (players.length + firstCol )) + cnt;
+		var strId = 'td' + num;
+		var tdObj = document.getElementById(strId);
+		if(cnt != 0){
+			inputObj = inputObjs[cnt-1];
+			inputObj.value = tdObj.textContent;
+		}else{
+			// とりあえずクリア
+			radioObjs = document.getElementsByName("kind");
+			radioObjs.forEach(function(obj){
+				obj.checked = false;
+			})
+
+			// 0 は種類なのでradioボタン設置
+			var kind = tdObj.textContent;
+			var kindId = ''
+			switch(kind){
+			case '四麻':
+				kindId = 'kind4ma';
+				break;
+			case '三麻':
+				kindId = 'kind3ma';
+				break;
+			case 'チップ':
+				kindId = 'kindChip';
+				break;
+			}
+			if(kindId != ''){
+				console.log("kindId:" + kindId)
+				radioObj = document.getElementById(kindId);
+				radioObj.checked = true
+			}
+		}
+	} // for
+
+
+    inputDialogObj.style.display = 'block';
+    showScoreObj.style.display = 'none';
+} // function displayDialog
+ 
+//「はい」がクリックされたら
+yes.addEventListener('click', function(){ 
+	console.log('yes');
+
+	sum = inScoreSumObj.textContent;
+	if(sum != 0){
+		// 合計が0以外なのでアラート表示
+		// 何も入力してない場合もアラートにしよう
+		alert("合計を0にして下さい")
+		return;
+	}else{
+		console.log("editGameNo2:" + editGameNo)
+
+		// todo
+		// 本来ここで種類を入れるが無理やり四麻を入れる
+		var num = editGameNo * (players.length + firstCol );
+		console.log("tdNo:" + num)
+		tdObj = document.getElementById('td' + num);
+		tdObj.innerText = "四麻"
+
+		var cnt = 1;
+		inputObjs.forEach(function(obj){
+			tdNo = editGameNo * (players.length +firstCol)+ cnt;
+			console.log("tdNo:" + tdNo)
+			tdObj = document.getElementById('td' + tdNo);
+			console.log(tdObj.textContent)
+			console.log(obj.value);
+			tdObj.innerText = String(obj.value);
+			cnt++;
+		})
+	    inputDialogObj.style.display = 'none';
+	    showScoreObj.style.display = 'block';
+
+	    // ネットワークに送信
+	}
+
+
+});
+ 
+
+//「キャンセル」がクリックされたら
+cancel.addEventListener('click', function(){
+	console.log('cancel');
+    inputDialogObj.style.display = 'none';
+    showScoreObj.style.display = 'block';
+ });
 
 
 </script>
