@@ -5,44 +5,47 @@
 	<meta charset="UTF-8">
 	<style>
 		body {
-			font-size: 2.0em;
+			font-size: 200%;
 			font-family: 'Avenir','Helvetica Neue','Helvetica','Arial','Hiragino Sans','ヒラギノ角ゴシック',YuGothic,'Yu Gothic','メイリオ', Meiryo,'ＭＳ Ｐゴシック','MS PGothic'
 		}
 
-		.tableTaikyokuNow {
+
+		table.tableTaikyokuNow{
 			text-align: center;
-			border-collapse: collapse; /* 一重線 */
 			width: 100%;
+
+			border-collapse: collapse; /* 一重線 */
 			border: 2px solid gray;
 		}
 
-		.tableTaikyokuNow th {
+		table.tableTaikyokuNow tr{
 			border: 1px solid gray;
+		}
+
+
+		table.tableTaikyokuNow th,td{
+			/*border: 1px solid gray;*/
 			padding-top: 1.0em;
 			padding-bottom: 1.0em;
 		}
 
-		.thName {
+
+		#scoreLineNames {
 			background: #dcdcdc;
 		}
 
-		.thSum {
+		#scoreLineTotals {
 			background: lightgreen;
+			border-bottom: 3px gray double;
 		}
 
 
-		.tableTaikyokuNow td {
-
-			border: 1px solid gray;
-			padding-top: 1.0em;
-			padding-bottom: 1.0em;
-		}
-		.tableTaikyokuNow td:nth-child(2n){
+		
+		table.tableTaikyokuNow td:nth-child(2n){
 			background-color: lightblue;
 		}
 
-
-		.tableTaikyokuNow caption {
+		table.tableTaikyokuNow caption {
 			caption-side: top;
 			font-size: x-large;
 			font-weight: bold;
@@ -60,32 +63,188 @@
 			border-radius: 3px;
 		}
 
+		#showScore{
+			display:block;
+		}
 
 		#inputDialog {
-		    width: 90%;
+			font-size: 5vw;
+
+		    width: 100%;
 		    margin: auto;
-		    margin-top: 10vh;
-		    padding: 30px 20px;
+		    margin-top: 5vh;
+		    padding: 5% 5%;
 		    display: none;
-		    text-align: center;
+/*		    text-align: center;*/
 		    border: 1px solid #aaa;
 		    box-shadow: 2px 2px 4px #888;
+			box-sizing: border-box;
 		}
 
-		ul li {
-			list-style: none;
-			label {
-			    margin-right: 10px;
-			    width: 100px;
-			    float: left;
-			}
+		p#selectKind{
+/*			font-size: 5vw;*/
+			padding: 5vw 10%;
+			border: 3px double gray;
+			position:relative;
 		}
 
-		.invisibleBtn {
-			background: none;
-			border: none;
-			font-size: 1.0em;
+		#selectKind input[type="radio"]{
+			display:none;
+		}
 
+		#selectKind label{
+/*			font-size: 5vw;*/
+			width: 30%;
+			color: #ddd;
+			text-align: center;
+			display:inline-block;
+		}
+
+		#selectKind label:hover{
+			color: #888;
+		}
+
+		#selectKind input[type="radio"]:checked + label{
+			color: #000;
+			border: 1px solid #000;
+			background-color: lightyellow;
+		}
+
+		span.selectTitle {
+			position:absolute;
+			top: -4vw;
+			left: 2vw;
+			background-color: white;
+		}
+
+
+		#inputScore label{
+/*			font-size: 5vw;*/
+			font-weight: bold;
+			box-sizing: border-box;
+			display: inline-block;
+
+			width: 45%;
+			padding: 0px;
+			margin: 0px;
+/*			border: 1px solid gray;	*/
+		}
+
+		#inputScore input[type="number"]{
+			font-size: 5vw;
+			width: 20%;
+			box-sizing: border-box;
+			padding: 0px 10px 0px 10px;
+			margin: 0px;
+			border: 1px solid gray;	
+			text-align: center;
+		}
+
+
+		#inputScore button{
+			font-size: 5vw;
+			width: 30%;
+
+			display:inline-block;
+			box-sizing: border-box;
+
+			margin: 0 .0 0 2vw ;
+			text-decoration: none;
+			background: #668ad8;/*ボタン色*/
+			border-radius: 3px;
+			color: #FFF;
+			border-bottom: solid 4px #627295;
+		}
+
+		#inputScore p{
+			margin-top: 1.0em;
+			margin-bottom: 1.0em;
+
+			padding-left: 0.5em;
+			background-color: lightgrey;
+			box-sizing: border-box;
+		}
+
+		p.inputScoreSum {
+			font-size: 150%;
+			text-align: center;
+		}
+
+		#inScoreSumSpan{
+			font-size: 150%;
+			padding: 0 5vw;
+			font-weight:bold;
+			border:5px solid gray;
+
+		}
+
+		#showSelectPlayers{
+
+/*			flex-direction: column; /* 縦並べに必要*/
+/*			display: inline-flex; /* 縦並べに必要*/
+			font-size: 6vw;
+			padding: 10% 5% 10% 5%;
+			display: none;
+	
+		}
+
+		#selectPlayers input[type="checkbox"]{
+			display:none;
+		}
+
+		.checkboxDeco {
+			font-size: 150%;
+			position: relative;
+			padding: 3vw 4vw 3vw 8vw;
+			transition:.3s;
+			color: #444;
+			border-radius: 10%;
+			border: 1px solid #ddd;
+			display:inline-block;
+			line-height:1;
+			margin: 1vw 1vw 1vw 1vw;
+		}
+
+		.checkboxDeco::before{
+			content: "";
+			display: block;
+			position: absolute;
+			top: 6vw;
+			left: 1vw;
+			width: 7vw;
+			height: 3vw;
+			border-radius: 10vw;
+			border: 1px solid #aaa;
+			background: #fff;
+		}
+
+		.checkboxDeco::after{
+			content: "";
+			display: block;
+			position: absolute;
+			top: 6vw;
+			left: 1vw;
+			width: 3vw;
+			height: 3vw;
+			background: #aaa;
+			border-radius: 10vw;
+			transition:.2s;
+			display: block;
+		}
+
+		#selectPlayers input[type="checkbox"]:checked + .checkboxDeco{
+			background: #ff555e;
+			color: #fff;
+			border: 1px solid #ff555e;
+		}
+
+		#selectPlayers input[type="checkbox"]:checked + .checkboxDeco::before{
+			border: 1px solid #ff555e;
+		}
+
+		#selectPlayers input[type="checkbox"]:checked + .checkboxDeco::after{
+			left: 5vw;
+			background: #ff555e;
 		}
 
 	</style>
@@ -97,74 +256,48 @@
 	<tr>
 		<td>対局開始時刻</td>
 		<td>2018/5/16 22:30</td>
-		<td><Button class = "sqr_button">メンバー編集</Button></td>
+		<td><Button id= "editPlayers" class = "sqr_button">メンバー編集</Button></td>
 		<td><button id = "addbtn" class = "sqr_button" >追加</button></td>
 	</tr>
 
 </table>
 
 
-<table id = "table_id" class = "tableTaikyokuNow">
+<table id = "scoreTableId" class = "tableTaikyokuNow">
 <caption>対局中！！</caption>
-	<tr class="thName">	
+	<tr id="scoreLineNames">	
+<!--
 		<th width = 12%>種類</th>
 		<th width = 18%>トム</th>
 		<th width = 18%>あきら</th>
 		<th width = 18%>車掌</th>
 		<th width = 18%>たいち</th>
 		<th width = 18%>どもん</th>
+-->
 	</tr>
-	<tr class="thSum">
+	<tr id="scoreLineTotals">
+<!--
 		<th>合計</th>
 		<th></th>
 		<th></th>
 		<th></th>
 		<th></th>
 		<th></th>
+-->
+	</tr>
+<!--
+	<tr>
+/tr>
+	<tr id="selectLine">
+		<td></td><td></td><td class="selectLine"></td><td></td><td></td><td></td>
 	</tr>
 	<tr>
-		<td>四麻</td>
-		<td>50</td>
-		<td>-42</td>
-		<td>18</td>
-		<td>-16</td>
-		<td></td>
+		<td></td><td></td><td></td><td></td><td></td><td></td>
 	</tr>
-	<tr>
-		<td>四麻</td>
-		<td>9</td>
-		<td>49</td>
-		<td>-40</td>
-		<td></td>
-		<td>-50</td>
-	</tr>
-	<tr>
-		<td>チップ</td>
-		<td>10</td>
-		<td>-8</td>
-		<td>8</td>
-		<td>-6</td>
-		<td>-6</td>
-	</tr>
-
-	<tr>
-		<td></td><td></td><td></td>
-		<td></td><td></td><td></td>
-	</tr>
-	<tr>
-		<td></td><td></td><td></td>
-		<td></td><td></td><td></td>
-	</tr>
-	<tr>
-		<td></td><td></td><td></td>
-		<td></td><td></td><td></td>
-	</tr>
-	<tr>
-		<td></td><td></td><td></td>
-		<td></td><td></td><td></td>
-	</tr>
+-->
 
 </table>
+
 
 <button class = "sqr_button">ゲーム終了</button>
 </div> <!-- showScore-->
@@ -172,7 +305,8 @@
 
 
 <div id="inputDialog">
-    <p>
+    <p id="selectKind">
+   	<span class="selectTitle">種類を選択して下さい</span>
 	<input id="kind4ma" type="radio" name="kind" value="4ma">
 	<label for="kind4ma">四麻</label>
 	<input id="kind3ma" type="radio" name="kind" value="3ma">
@@ -181,201 +315,275 @@
 	<label for="kindChip">チップ</label>
 	</p>
 
-	<table id="inputScore">
-	</table>
+	<p id="inputScore">
+<!--
+		<p>
+		<label for="inputId1">トム</label>
+		<input id=inputId1 type="number" name="input1">
+	    <button id="remind1">残自動</button>
+		</p>
+		<p>
+-->
+	</p>
 
-	<p>合計  <span id="inScoreSum">0</span></p>
+
+	<p class="inputScoreSum">合計<span id="inScoreSumSpan">0</span></p>
 
 
 	<p>よろしいですか？</p>
     <button id="yes" class = "sqr_button">はい</button>
     <button id="cancel" class = "sqr_button">キャンセル</button>
+    <button id="reset" class = "sqr_button">reset</button>
+    <button id="delete" class = "sqr_button">delete</button>
+
+</div>
+
+
+<div id="showSelectPlayers">
+	<p>プレイするメンバーを選択してください</p>
+	<p id="selectPlayers">
+<!--
+	<label>
+		<input id="player1" type='checkbox'>
+		<span class="checkboxDeco">トム</span>
+	</label>
+	<label>
+		<input id="player2" type='checkbox'>
+		<span class="checkboxDeco">クニ</span>
+	</label>
+	<label>
+		<input id="player3" type='checkbox'>
+		<span class="checkboxDeco">マーさん</span>
+	</label>
+-->
+	</p>
+
+	<button id="selectOk" class="sqr_button">完了</button>
+	<button id="selectCancel" class="sqr_button">キャンセル</button>
+
 </div>
 
 
 <script>
-	const firstRow = 2; // 点数入力の初期行(0から開始)
-	const firstCol = 1; // 点数入力の初期列(0から開始)
-	const sumRow = 1;	// 合計値の初期列
-	var flg = 0; // 入力値判定フラグ
-	var backupText = "";
-	var inputMode = 0; //0:通常 1:編集中
-
-	window.onload = function() {
-
-		var myTbl = document.getElementById('table_id');
-		var tdList = myTbl.getElementsByTagName('td');
-		for(var cnt=0; cnt < tdList.length; cnt++){
-			tdList[cnt].setAttribute('id','td' + cnt);	
-			tdList[cnt].onclick = function() {
-				console.log("log:onClick " + this.innerHTML);
-
-				if(flg==1){return;}
-
-				backupText = this.innerHTML;// 入力されなかった時用のバックアップ
-				console.log("log:backupText " + backupText);
-
-//				editTd(this.id);
-				
+// このリストはrubyで自動生成する ↓↓↓↓ここから
+// このグループ全員のIDと名前（IDはユニークな値）
+const plist = {1:'トム', 2:'クニ', 3:'まーさん',4:'あきら', 6:'車掌',8:'どもん', 9:'のり', 10:'たいち',11:'あゆむらさき'};
+// 現在プレイしているユーザーのID
+const players = [1, 4, 6, 10, 8, 11];
 
 
-				displayDialog(myTbl, this.id);
+scoreTable = [
+	{gameNo:0, kind:0, scores:['50','-42','8','-16','','']},
+	{gameNo:1, kind:1, scores:['1' ,'49' ,'' ,'' ,'-50','']},
+	{gameNo:2, kind:2, scores:['10','-8' ,'8','-6','-6','']}
+];
+// このリストはrubyで自動生成する ↑↑↑↑ここまで
 
-				return;
-			}
-		}
-
-		console.log("onload calc");
-		calcSum(myTbl);
-
-
-		// 編集可能領域がクリックされた場合
-		function editTd(id) {
-			console.log("log:edit " + id)
-			var tdList = document.getElementsByTagName('td');
-			var spn = document.createElement('span');
-			spn.setAttribute('contenteditable','true')
-			spn.setAttribute('id','spn' + id);
-
-			tdList[id].innerHTML = ""; // 既存部分は編集できない？
-			tdList[id].appendChild(spn);
-			spn.focus();
-			spn.onblur = function() {
-				blurTd(id);
-			}
-		} // end of editTd
-
-			// フォーカスアウト
-		function blurTd(id) {
-
-			console.log("log:blurTd " + id)
-			var spn = document.getElementById('spn' + id);
-			console.log(spn);
-			var str = spn.textContent; //textContextだと改行が取得できなかった(br変換されてた(chrome))。innnerTextだと改行ありで取得
-			// 入力値チェック
-
-			if(str.match(/[^0-9 . -]|[¥s]+/)) {
-				console.log("log:input invalid text " + str);
-				flg = 1;
-
-				alert("半角数値を入れてください")
-				editTd(id);
-			}else if(str == ""){
-				console.log("log:input none " + backupText);
-
-				flg = 0;
-				// 入力がなかったので戻す
-				tdList[id].innerHTML = backupText;
-			}else {
-				// 数値が変更された
-				console.log("log:input text " + str);
-				flg = 0;
-				tdList[id].innerHTML = str;
-				calcSum(myTbl)
-			}
-
-		} //End of blurTd
-
-		function calcSum(tbl){
-
-			var rowLen = tbl.rows.length; // 行数
-			var colLen = tbl.rows[firstRow].cells.length; // 列数
-			var sum = [colLen - firstCol];
-			console.log("log:row=" + rowLen + " col="+colLen);
-			for(var colCnt = firstCol;colCnt < colLen ; colCnt++){
-				sum[colCnt-1] = 0;
-
-				for(var rowCnt = firstRow;rowCnt < rowLen; rowCnt++){
-
-					num = myTbl.rows[rowCnt].cells[colCnt].textContent;
-					num = parseInt(num);
-//					console.log("log:table[%d][%d]=%d",rowCnt,colCnt,num);
-					if (isNaN(num)){
-						// 整数以外は処理しない
-						console.log("log: NaN")
-						continue;
-					}
-					sum[colCnt-firstCol] += num
-				}
-
-				// 合計値を書き換え
-				var sumCell = tbl.rows[sumRow].cells[colCnt];
-				sumCell.innerHTML = sum[colCnt - firstCol];
-
-			}
-			console.log("log:sum "+ sum);
-		} // End of calcSum
-
-
-		// 行の合計が0になっているかどうかを確認(boolean)
-		function checkLine(tbl , rowNo){
-			var sum = 0;
-			var colLen = tbl.rows[1].cells.length; // 列数
-			for(var cnt = firstCol; cnt < colLen; cnt++){
-					num = myTbl.rows[rowCnt].cells[colCnt].textContent;
-					num = parseInt(num);
-					if (isNaN(num)){
-						// 整数以外は処理しない
-						console.log("log: NaN")
-						continue;
-					}
-				sum += num;
-			}
-
-
-
-		}
-	} // End of window.onload
-
-
-	var addbtn = document.getElementById("addbtn");
-	addbtn.addEventListener("click", function(){
-
-		var tbl = document.getElementById("table_id");
-		var rowLen = tbl.rows.Length;
-		console.log("log:rowLen=" + rowLen);
-		var tr = tbl.insertRow(4);
-		var td1 = tr.insertCell(-1);
-		td1.innerHTML = ""
-		var td2 = tr.insertCell(-1);
-		td2.innerHTML = ""
-		var td3 = tr.insertCell(-1);
-		var td4 = tr.insertCell(-1);
-		var td5 = tr.insertCell(-1);
-		var td6 = tr.insertCell(-1);
-
-		// rubyに入力を送信
-
-		// 合計も変更
-	}, false);
-
-
-
-// このリストはrubyで自動生成する
-const plist = {1:'トム', 2:'クニ', 3:'まーさん',4:'あきら', 6:'車掌',8:'どもん', 9:'のり', 10:'たいち'};
-const players = [1, 4, 6, 10, 8];
 
 console.log(plist);
 console.log(players);
 
-var inScoreTbl = document.getElementById('inputScore');
+
+var initScore = {gameNo:-1, kind:-1, scores:['','','','','']};
+
+
+scoreTable.forEach(function(game){
+	console.log(game);
+})
+
+const gameKindString =  {0:"四麻", 1:"三麻",2:"ﾁｯﾌﾟ"};
+
+const firstRow = 2; // 点数入力の初期行(0から開始)
+const firstCol = 1; // 点数入力の初期列(0から開始)
+const sumRow = 1;	// 合計値の初期列
+
+//よく使う変数を計算しておく
+var playerNum = players.length;
+console.log("playerNum:" + String(playerNum));
+
+var totalThObjs = []; // 合計セルのオブジェクト
+
+var selectedTrId = null;
+
+window.onload = function() {
+
+	var scoreTblObj = document.getElementById('scoreTableId');
+	// 名前行を作成
+	var nameLineObj = document.getElementById('scoreLineNames');
+
+	var headColPer = 15;
+	var th = document.createElement('th');
+	th.innerHTML = "種類"
+	th.width = String(headColPer) +"%"
+	nameLineObj.appendChild(th);
+
+	nameWidth = Math.floor((100 - headColPer)/playerNum);
+
+	players.forEach(function(obj){
+		th = document.createElement('th');
+		th.innerHTML = plist[obj];
+		th.width = String(nameWidth) + "%"
+		nameLineObj.appendChild(th);
+	});
+
+	//合計行の作成
+	var totalLineObj = document.getElementById('scoreLineTotals');
+	th = document.createElement('th');
+	th.innerHTML = "合計"
+	totalLineObj.appendChild(th);
+
+	players.forEach(function(obj){
+		th = document.createElement('th');
+		th.innerHTML = "";
+		totalLineObj.appendChild(th);
+		totalThObjs.push(th);
+	});
+
+	// 入力行作成&値入力&クリックイベント登録
+	var idCnt = 0;
+	scoreTable.forEach(function(game){
+		var tr = scoreTblObj.insertRow(-1);
+		tr.setAttribute('id','tr'+ idCnt);
+
+		// 種類cell追加
+		var td = tr.insertCell(-1)
+		td.innerHTML = gameKindString[game.kind];
+
+		// 得点追加
+		game.scores.forEach(function(score){
+			td = tr.insertCell(-1)
+			td.innerHTML = score;
+		})
+
+		tr.onclick = function(){
+			console.log("onClick tr id:"+this.id)
+
+			if(!selectedTrId){
+				// 未選択の場合はスタイルを変更する
+				tr.style.border = "solid 5px red"
+
+				selectedTrId = this.id;
+			}else if(selectedTrId == this.id){
+				//選択済みのIDと同じならINPUTダイアログを表示
+				displayDialog(this.id);
+
+				var selectedTr = document.getElementById(selectedTrId);
+
+				selectedTr.style.border = "none"
+				selectedTrId = null;
+
+			}else{
+				//選択しているIDと違うIDが選択された場合今の選択を戻して違うセルにする
+				var selectedTr = document.getElementById(selectedTrId);
+				selectedTr.style.border = "none"
+
+				tr.style.border = "solid 5px red"
+				selectedTrId = this.id;
+
+			}	
+		}
+		idCnt++;
+	})
+
+
+	console.log("onload calc");
+	var totals = calcTotal();
+	for(var cnt=0; cnt<playerNum; cnt++){
+		totalThObjs[cnt].innerHTML = String(totals[cnt]);
+	}
+
+
+	var addbtn = document.getElementById("addbtn");
+	addbtn.addEventListener("click", function(){
+		// 初期化した内容で入力ダイアログ表示
+		displayDialog('add');
+
+	}, false);
+
+
+	var editPlayersBtn = document.getElementById("editPlayers");
+	editPlayersBtn.addEventListener("click", function(){
+		inputDialogObj.style.display = 'none';
+		showScoreObj.style.display = 'none';
+		showSelectPlayersObj.style.display = 'block';
+	});
+
+
+} // End of window.onload
+
+
+function calcTotal(){
+	var totals = [playerNum];
+
+	gameNum = scoreTable.length;
+	console.log("gameNum:"+gameNum)
+
+	for(var playerCnt=0; playerCnt<playerNum; playerCnt++){
+		totals[playerCnt] = 0;
+		for(var gameCnt=0; gameCnt<gameNum; gameCnt++){
+			num = parseInt(scoreTable[gameCnt].scores[playerCnt]);
+			if (isNaN(num)){
+				// 整数以外は処理しない
+				console.log("log: NaN[%d][%d]",gameCnt,playerCnt)
+				continue;
+			}
+
+			totals[playerCnt] += num;
+			// 合計行に書き込み
+		}
+	}
+	console.log("totals:" + totals)
+	return totals;
+
+} // End of calcSum
+
+
+
+
+
+//var inScoreTbl = document.getElementById('inputScore');
 var inputObjs = [];
 
-var inRowCnt = 0;
 
+var inRowCnt = 0;
 players.forEach(function(playerNo){
-	var tr = inScoreTbl.insertRow(inRowCnt);
-	var td1 = tr.insertCell(-1);
-	td1.innerHTML = plist[playerNo];
-	var td2 = tr.insertCell(-1);
-	var doc = document.createElement("input");
-	doc.type = "number"
-	doc.id = "inputId" + playerNo;
-	doc.name = "input" + playerNo;
-	td2.appendChild(doc);
-	inputObjs.push(doc);
+//	var tr = inScoreTbl.insertRow(inRowCnt);
+//	var td1 = tr.insertCell(-1);
+//	td1.innerHTML = plist[playerNo];
+//	var td2 = tr.insertCell(-1);
+//	var doc = document.createElement("input");
+//	doc.type = "number"
+//	doc.id = "inputId" + playerNo;
+//	doc.name = "input" + playerNo;
+//	td2.appendChild(doc);
+	var inputScoreObj = document.getElementById('inputScore');
+	var p = document.createElement("p");
+	var label = document.createElement("label");
+	label.innerHTML = plist[playerNo];
+	label.htmlFor = "inputId" + playerNo;
+	var input = document.createElement("input");
+	input.type = "number"
+	input.id = "inputId" + playerNo;
+	input.name = "input" + playerNo;
+	var button = document.createElement("button");
+	button.id = "remind" + playerNo;
+	button.innerHTML = "合計０";
+
+	button.addEventListener('click', function(){
+		// 自身のID以外のinput値を可算して自分のinput値に入力
+		setTotalZero(this.id);
+
+	})
+
+
+	inputScoreObj.appendChild(p);
+	p.appendChild(label);
+	p.appendChild(input);
+	p.appendChild(button);
+
+	inputObjs.push(input);
 	// テキストボックスの入力イベント
-	doc.addEventListener("input",function(){
+	input.addEventListener("input",function(){
 		console.log("event input:" + this.value);
 		calcInputScore();
 	});
@@ -383,7 +591,42 @@ players.forEach(function(playerNo){
 })
 console.log(inputObjs);
 
-var inScoreSumObj = document.getElementById('inScoreSum');
+
+
+function setTotalZero(buttonId){
+
+	var id = buttonId.substr("remind".length);
+	var inputId = "inputId" + id;
+	console.log(inputId);
+
+	var sum = 0;
+
+	inputObjs.forEach(function(obj){
+		if(obj.id != inputId){
+			// クリックしたボタンの入力値は無視
+			value = obj.value;
+			num = parseInt(value)
+			if (!isNaN(num)){
+				sum += num;
+			}
+		}
+
+	});
+
+	var inputObj = document.getElementById(inputId);
+	console.log(inputObj);
+	inputObj.value = String(sum);
+
+
+}
+
+// でバック用
+//var invisible = document.getElementById('inputScore');
+//invisible.style.display = "none";
+
+
+
+var inScoreSumObj = document.getElementById('inScoreSumSpan');
 
 function calcInputScore(){
 
@@ -391,7 +634,6 @@ function calcInputScore(){
 
 	inputObjs.forEach(function(obj){
 		value = obj.value;
-//		console.log("value:" + value);
 		num = parseInt(value)
 		if (!isNaN(num)){
 			sum += num;
@@ -413,70 +655,66 @@ function calcInputScore(){
 //function show
 
 
-//各種ボタン要素を取得しておく
+//各種要素を取得しておく
 var inputDialogObj = document.getElementById('inputDialog');
-//var btn = document.getElementById('btn');
 var yes = document.getElementById('yes');
 var cancel = document.getElementById('cancel');
  
 var showScoreObj = document.getElementById('showScore');
+	
+var inputGameNo = 0; // 入力中のgameNo. -1は追加
 
-var editGameNo = 0;
 
+function displayDialog(clickId){
+	console.log("displayDialog id:"+clickId);
 
-function displayDialog(scoreTbl, tdId){
-	console.log(tdId);
-	id = tdId.substr(2);
-	idNum = parseInt(id);
-	console.log(id);
+	var setScore ={};
 
-	var colLen = scoreTbl.rows[1].cells.length; // 列数
+	// clickIdはtr(行)のID 'addの場合は追加（初期化）とみなす'
+	if(clickId == 'add'){
+		setScore = initScore;
+		inputGameNo =-1;
 
-	editGameNo = Math.floor(idNum / colLen);
-	console.log("editGameNo1:" + editGameNo);
+	}else{
+		id = clickId.substr(2);
+		idNum = parseInt(id);
+		setScore = scoreTable[idNum];
+		inputGameNo = scoreTable[idNum].gameNo;
+	}
+	console.log("setScore:" + setScore)
 
-	for(var cnt = 0; cnt < colLen; cnt++){;
+	// ラジオボタンの要素取得
+	var radioObjs = document.getElementsByName("kind");
+	console.log("get radio button:" + radioObjs)
+	radioObjs.forEach(function(obj){console.log(obj);})
 
-		var num = (editGameNo * (players.length + firstCol )) + cnt;
-		var strId = 'td' + num;
-		var tdObj = document.getElementById(strId);
-		if(cnt != 0){
-			inputObj = inputObjs[cnt-1];
-			inputObj.value = tdObj.textContent;
-		}else{
-			// とりあえずクリア
-			radioObjs = document.getElementsByName("kind");
-			radioObjs.forEach(function(obj){
-				obj.checked = false;
-			})
+	// 初期化
+	radioObjs.forEach(function(obj){
+		obj.checked = false;
+	})
 
-			// 0 は種類なのでradioボタン設置
-			var kind = tdObj.textContent;
-			var kindId = ''
-			switch(kind){
-			case '四麻':
-				kindId = 'kind4ma';
-				break;
-			case '三麻':
-				kindId = 'kind3ma';
-				break;
-			case 'チップ':
-				kindId = 'kindChip';
-				break;
-			}
-			if(kindId != ''){
-				console.log("kindId:" + kindId)
-				radioObj = document.getElementById(kindId);
-				radioObj.checked = true
-			}
-		}
-	} // for
+	// -1の場合は指定なし
+	setRadio = setScore.kind;
+	if(setRadio != -1){
+		radioObjs[setRadio].checked = true;
+		console.log("set radio button:" + setRadio)
+	}
 
+	// 各スコアの設定
+	for(var cnt=0; cnt<playerNum; cnt++){
+		inputObjs[cnt].value = setScore.scores[cnt];
+		console.log("set inputText:" + setScore.scores[cnt])
+	}
+
+	calcInputScore();
 
     inputDialogObj.style.display = 'block';
     showScoreObj.style.display = 'none';
+    showSelectPlayersObj.style.display = 'none';
 } // function displayDialog
  
+
+
 //「はい」がクリックされたら
 yes.addEventListener('click', function(){ 
 	console.log('yes');
@@ -522,7 +760,62 @@ cancel.addEventListener('click', function(){
 	console.log('cancel');
     inputDialogObj.style.display = 'none';
     showScoreObj.style.display = 'block';
+    showSelectPlayersObj.style.display = 'none';
  });
+
+
+/* playerセレクト */
+showSelectPlayersObj = document.getElementById("showSelectPlayers");
+selectPlayersObj = document.getElementById("selectPlayers");
+
+for(playerNo in plist){
+	label = document.createElement("label");
+	input = document.createElement("input")
+	input.id = "player" + playerNo;
+	input.type = "checkbox";
+
+	// 既にリストに含まれていて値を持っている人はせんたく済みにする
+	// さらに既に値をもっている人は変更不可とする
+	var playerCnt = 0;
+	players.forEach(function(no){
+		if(playerNo == no){
+			input.checked = true;
+			var flg = false;
+			for(var gameCnt=0;gameCnt<scoreTable.length;gameCnt++){
+				if(scoreTable[gameCnt].scores[playerCnt] !=''){
+					//値があればflgをたてる
+					flg = true;
+					break;
+				}
+
+			} // for end
+
+			if(flg){
+				input.disabled = true;
+			}
+
+		}
+		playerCnt++;
+	});
+
+	span = document.createElement("span");
+	span.innerHTML = plist[playerNo];
+	span.classList.add("checkboxDeco");
+
+	selectPlayersObj.appendChild(label);
+	label.appendChild(input);
+	label.appendChild(span);
+}
+
+var selectOkObj = document.getElementById("selectOk");
+var selectCancelObj = document.getElementById("selectCancel");
+
+selectCancelObj.addEventListener('click',function(){
+    inputDialogObj.style.display = 'none';
+    showScoreObj.style.display = 'block';
+    showSelectPlayersObj.style.display = 'none';
+})
+
 
 
 </script>
